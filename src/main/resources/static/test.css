@@ -1,0 +1,163 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+.wrapper {
+    max-width: 1140px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: auto;
+    margin-right: auto
+}
+
+*, *:before, *:after {
+    box-sizing: border-box
+}
+
+a {
+    text-decoration: none;
+    color: #f3efef
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+body {
+    font-family: roboto, sans-serif
+}
+
+.sr-only {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden
+}
+
+.button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #030405;
+    background-color: #fff;
+    min-width: 120px;
+    padding: .5rem 1rem;
+    border-radius: 5px;
+    text-align: center
+}
+
+.button svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    fill: #111010
+}
+
+.button span {
+    display: none
+}
+
+@media (min-width: 600px) {
+    .button span {
+        display: initial
+    }
+}
+
+.button--icon {
+    min-width: initial;
+    padding: .5rem
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 20px
+}
+
+.site-header {
+    position: relative;
+    background-color: #141617
+}
+
+.site-header__wrapper {
+    padding-top: 1rem;
+    padding-bottom: 1rem
+}
+
+@media (min-width: 600px) {
+    .site-header__wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0
+    }
+}
+
+@media (min-width: 600px) {
+    .nav__wrapper {
+        display: flex
+    }
+}
+
+@media (max-width: 599px) {
+    .nav__wrapper {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        z-index: -1;
+        background-color: #0f1111;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(-100%);
+        transition: transform .3s ease-out, opacity .3s ease-out
+    }
+
+    .nav__wrapper.active {
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.nav__item a {
+    display: block;
+    padding: 1.5rem 1rem
+}
+
+.nav__toggle {
+    display: none
+}
+
+@media (max-width: 599px) {
+    .nav__toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem
+    }
+}
+
+body > header > div > nav {
+    -webkit-font-smoothing: antialiased;
+    font-family: roboto, sans-serif;
+    box-sizing: border-box;
+}
+
+body > header > div > nav > ul {
+    -webkit-font-smoothing: antialiased;
+    font-family: roboto, sans-serif;
+    box-sizing: border-box;
+    display: flex;
+}
+
+body > header > div > nav > ul > li > a {
+    -webkit-font-smoothing: antialiased;
+    font-family: roboto, sans-serif;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: #f8f5f5;
+    margin-right: 76px;
+}

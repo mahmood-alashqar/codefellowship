@@ -5,39 +5,35 @@
     <title>Title</title>
 </head>
 <body>
-
-<a class="navbar-brand" href="/">home</a>
-
-<h1><span th:text="${username}"></span></h1>
-
-
-
-<img src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"/>
-
-<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+<header th:fragment="header"></header>
+<a class="navbar-brand" href="/">home</a><!--<h1><span th:text="${username}"></span></h1>--><img src="https://i.pinimg.com/474x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"/><div th:each="userInfo : ${userInfo}">
+    <div class="row g-0">
+        <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+            <span th:text="${userInfo.firstname}"></span><span th:text="${userInfo.lastname}"></span>
+            <p th:text="${userInfo.dateOfBirth}"></p>
+            <p th:text="${userInfo.location}"></p>
+            <p th:text="${userInfo.bio}"></p>
+        </div>
+    </div>
+</div><p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-
-<form class="postForm" action="#" th:action="@{/profile}" th:object="${posts}" method="post" >
-    <label>First Name :</label>
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p><form class="postForm" action="#" th:action="@{/myprofile}" th:object="${posts}" method="post" >
+    <label>Enter your post</label>
     <input class="title" type="text" name="body" placeholder="" required />
     <br>
+    <!--    <label>the date:</label>-->
+    <!--    <input class="title" type="date" name="createdAt" placeholder="" required />-->
+    <!--    <br>-->
     <input class="albumSubmit" type="submit" value="posts"/>
-</form>
-
-<div th:each="posts : ${posts}">
+</form><div th:each="posts : ${posts}">
     <div class="row g-0">
         <div class="col-lg-6 order-lg-1 my-auto showcase-text">
             <h2 th:text="${posts.body}"></h2>
             <p th:text="${posts.createdAt}"></p>
         </div>
     </div>
-</div>
-
-<form th:action="@{/logout}" method="post">
+</div><form th:action="@{/logout}" method="post">
     <input type="submit" value="Log Out">
-</form>
-
-</body>
+</form></body>
 </html>

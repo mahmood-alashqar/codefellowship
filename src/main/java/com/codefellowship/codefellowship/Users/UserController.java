@@ -17,63 +17,55 @@ import java.util.Optional;
 
 @Controller
 public class UserController {
-
-
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     PostRepository postRepository;
-
     @Autowired
-   private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
-    public String homePage(){
+    public String homePage() {
         return "home";
     }
 
     @GetMapping("/signup")
-    public String getSignupPage(){
+    public String getSignupPage() {
         return "signup";
     }
 
     @GetMapping("/login")
-    public String getLoginPge(){
+    public String getLoginPge() {
         return "logIn";
     }
 
-
-    @GetMapping("/profile")
-    public String getProfilePage(Model model){
-        UserDetails userDetails= (UserDetails) SecurityContextHolder
+    @GetMapping("/myprofile")
+    public String getProfilePage(Model model) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
         Users users = userRepository.findUsersByUsername(userDetails.getUsername());
-        model.addAttribute("posts",users.getPosts());
-        model.addAttribute("username",userDetails.getUsername());
+        model.addAttribute("posts", users.getPosts());
+        model.addAttribute("username", userDetails.getUsername());
+        model.addAttribute("userInfo", userRepository.findAll());
         return "profile";
     }
 
-
-
-    @PostMapping("/profile")
-    public RedirectView createPost(@RequestParam String body){
-        UserDetails userDetails= (UserDetails) SecurityContextHolder
+    @PostMapping("/myprofile")
+    public RedirectView createPost(@RequestParam String body) {
+        Date date = new Date();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getPrincipal();
         Users users = userRepository.findUsersByUsername(userDetails.getUsername());
-        Post post= new Post(body);
+        Post post = new Post(body);
         post.setUsers(users);
-        post= postRepository.save(post);
-
-        return new RedirectView("/profile");
+        post.setCreatedAt(date);
+        post = postRepository.save(post);
+        return new RedirectView("/myprofile");
     }
-
-
 
     @PostMapping("/signup")
     public RedirectView trySignUp(@RequestParam String firstname,
@@ -81,23 +73,18 @@ public class UserController {
                                   @RequestParam String username,
                                   @RequestParam String password,
                                   @RequestParam String location,
-                                  @RequestParam Date dateOfBirth,
-                                  @RequestParam String bio){
-        Users newUser = new Users(firstname,lastname,username,bCryptPasswordEncoder.encode(password),location,dateOfBirth,bio);
+                                  @RequestParam String dateOfBirth,
+                                  @RequestParam String bio) {
+        Users newUser = new Users(firstname, lastname, username, bCryptPasswordEncoder.encode(password), location, dateOfBirth, bio);
         newUser = userRepository.save(newUser);
-
-        Authentication authentication= new UsernamePasswordAuthenticationToken(newUser,null,new ArrayList<>());
-
+        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return new RedirectView("/profile");
+        return new RedirectView("/myprofile");
     }
 
-
-
-    @RequestMapping(value="/users/{id}",method= RequestMethod.GET)
-    public String getUsers(Model model, @PathVariable (value ="id") Long id){
-        Optional<Users> userById=userRepository.findById(id);
+    @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+    public String getUsers(Model model, @PathVariable(value = "id") Long id) {
+        Optional<Users> userById = userRepository.findById(id);
         model.addAttribute("bios", userById);
         return "profile";
     }
