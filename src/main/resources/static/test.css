@@ -1,4 +1,5 @@
 @import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
+
 .wrapper {
     max-width: 1140px;
     padding-left: 1rem;
@@ -40,7 +41,7 @@ body {
     -moz-appearance: none;
     appearance: none;
     color: #030405;
-    background-color: #fff;
+    background-color:#fff;
     min-width: 120px;
     padding: .5rem 1rem;
     border-radius: 5px;
@@ -139,21 +140,21 @@ body {
         top: 1rem
     }
 }
-
-body > header > div > nav {
+body > header > div > nav
+{
     -webkit-font-smoothing: antialiased;
     font-family: roboto, sans-serif;
     box-sizing: border-box;
 }
-
-body > header > div > nav > ul {
+body > header > div > nav > ul
+{
     -webkit-font-smoothing: antialiased;
     font-family: roboto, sans-serif;
     box-sizing: border-box;
     display: flex;
 }
-
-body > header > div > nav > ul > li > a {
+body > header > div > nav > ul > li > a
+{
     -webkit-font-smoothing: antialiased;
     font-family: roboto, sans-serif;
     box-sizing: border-box;

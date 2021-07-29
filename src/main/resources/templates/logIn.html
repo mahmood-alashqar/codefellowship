@@ -1,25 +1,41 @@
 <!DOCTYPE html>
-<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">-->
-<head th:replace="fragment :: head"></head><body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<head th:replace="fragment :: head" xmlns:th="http://www.w3.org/1999/xhtml" ></head>
+
+<body>
 <header th:replace="fragment :: header"></header>
 <div class="sidenav">
   <div class="login-main-text">
     <h2>Application<br> Login Page</h2>
     <p>Login or register from here to access.</p>
-  </div>
+<!--      <h4 th:text="${userInfo.username}"></h4>-->
+
+</div>
 </div>
 <div class="main">
-  <div class="col-md-6 col-sm-12">    <div class="login-form">
-    <form action="#" th:action="@{/login}" method="post">
-      <h1>Log in</h1>        <div class="form-group">          <label>User Name</label>
-      <input type="text" name="username" class="form-control" placeholder="User Name">
+  <div class="col-md-6 col-sm-12">
+
+    <div class="login-form">
+      <form action="#" th:action="@{/login}" method="post">
+        <h1>Log in</h1>
+
+        <div class="form-group">
+
+          <label>User Name</label>
+          <input type="text" name="username" class="form-control" placeholder="User Name">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control" placeholder="Password">
+        </div>
+        <input type="submit" class="btn btn-black" value="LogIn"></input>
+        <button class="buttonsign"><a class="buttonA" th:href="@{/signup}" >sign up</a></button>
+
+
+      </form>
+
+
     </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password">
-      </div>
-      <input type="submit" class="btn btn-black" value="LogIn"></input>
-      <button><a th:href="@{/signup}" >sign up</a></button>      </form>    </div>
   </div>
 </div>
 <footer th:replace="fragment :: footer"></footer>
