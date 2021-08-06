@@ -3,6 +3,8 @@ import org.springframework.data.annotation.Id;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "post")
 public class Post {
@@ -15,6 +17,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "userid")
     private Users users;
+
+
+
     public Post() {
     }
     public Users getUsers(){
@@ -38,6 +43,7 @@ public class Post {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
     public Post(String body, Date createdAt,Users users) {
         this.users=users;
         this.body = body;

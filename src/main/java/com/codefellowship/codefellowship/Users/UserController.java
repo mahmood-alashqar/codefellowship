@@ -16,10 +16,14 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     PostRepository postRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     @GetMapping("/")
     public String homePage(){
         return "home";
@@ -43,6 +47,10 @@ public class UserController {
         model.addAttribute("posts",users.getPosts());
         model.addAttribute("username",userDetails.getUsername());
         model.addAttribute("userInfo",users);
+         userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users userAccountLoggedIn = userRepository.findUsersByUsername(userDetails.getUsername());
+        model.addAttribute("noOfFollowers",userAccountLoggedIn.getFollowers().size());
+        model.addAttribute("noOfFollowing",userAccountLoggedIn.getFollowing().size());
         return "profile";
     }
     @PostMapping("/myprofile")
@@ -87,4 +95,64 @@ public class UserController {
     public String getAccessDenied() {
         return "error";
     }
+
+
+
+
+    @GetMapping("/feeds")
+    public String getFeeds (Model model){
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users userAccountLoggedIn = userRepository.findUsersByUsername(userDetails.getUsername());
+        model.addAttribute("followinguser",userAccountLoggedIn.getFollowing());
+        model.addAttribute("userName",userDetails.getUsername());
+return "feeds";
+    }
+
+    @PostMapping("/following/{id}")
+    public RedirectView addFollowing(@PathVariable Long id) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users userAccount = userRepository.findById(id).orElseThrow();
+        Users userAccountLoggedIn = userRepository.findUsersByUsername(userDetails.getUsername());
+        userAccountLoggedIn.addFollowing(userAccount);
+        userRepository.save(userAccountLoggedIn);
+        return new RedirectView("/user/{id}");
+    }
+    @GetMapping("/user/{id}")
+            public String getUsr(Model model , @PathVariable Long id)
+    {
+        model.addAttribute("users",userRepository.findById(id).orElseThrow());
+        return "userId";
+    }
+    @PostMapping("/unFollowing/{id}")
+    public RedirectView removeFollowing(@PathVariable Long id) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Users userAccount = userRepository.findById(id).orElseThrow();
+        Users userAccountLoggedIn = userRepository.findUsersByUsername(userDetails.getUsername());
+        userAccountLoggedIn.deleteFollowing(userAccount);
+        userRepository.save(userAccountLoggedIn);
+        return new RedirectView("/user/{id}");
+    }
+
+//@GetMapping("/follow")
+//public String getFollowing(Model model){
+//    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    Users userAccountLoggedIn = userRepository.findUsersByUsername(userDetails.getUsername());
+//    model.addAttribute("noOfFollowers",userAccountLoggedIn.getFollowers().size());
+//    model.addAttribute("noOfFollowing",userAccountLoggedIn.getFollowing().size());
+//    return "follow";
+//
+//}
+@GetMapping("/users")
+    public String getUsers(Model model)
+{
+    model.addAttribute("users",userRepository.findAll());
+    return "userProfile";
 }
+//    @GetMapping("/users/{id}")
+//    public String getUsersByPostss(Model model,@PathVariable Long id)
+//    {
+//        model.addAttribute("users",userRepository.findById(id).orElseThrow());
+//        return "userId";
+//    }
+    }
+

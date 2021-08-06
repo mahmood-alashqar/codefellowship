@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragment :: head" xmlns:th="http://www.w3.org/1999/xhtml" ></head>
+
+<body style="display: flex; flex-direction: column; height: 100vh">
+<header th:replace="fragment :: header"></header>
+
+<div class="divusers" style="width: 20%;margin: auto;margin-top: 5%;" th:each="user :${users}">
+    <span th:text="${user.getUsername()}"></span>
+    <br>
+    <div id="divfolowing" >
+        <form th:action="'/following/' + ${user.getId()}" method="post" >
+
+            <input type="submit" value="Follow">
+        </form>
+        <form th:action="'/unFollowing/' + ${user.getId()}" method="post" >
+
+            <input type="submit" value="UnFollow">
+        </form>
+    </div>
+</div>
+</div>
+</div>
+<footer th:replace="fragment :: footer"></footer>
+
+</body>
+</html>

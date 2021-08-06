@@ -2,9 +2,8 @@ package com.codefellowship.codefellowship.Users;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @Entity
 @Table(name="users")
 public class Users implements UserDetails {
@@ -21,6 +20,32 @@ public class Users implements UserDetails {
     public List<Post> getPosts() {
         return posts;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "useraccount_useraccount",
+            joinColumns = {@JoinColumn(name = "from_id")},
+            inverseJoinColumns = {@JoinColumn(name = "to_id")}
+    )
+    public Set<Users> following= new HashSet<>();
+
+    public Set<Users> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Set<Users> following) {
+        this.following = following;
+    }
+
+    public List<Users> getFollowers() {
+        return followers;
+    }
+
+
+
+    @ManyToMany(mappedBy = "following", fetch = FetchType.EAGER)
+    public List<Users> followers;
+
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
@@ -105,5 +130,13 @@ public class Users implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    public Set<Users> addFollowing(Users users){
+        this.following.add(users);
+        return this.following ;
+    }
+    public Set<Users> deleteFollowing(Users userAccount){
+        this.following.remove(userAccount);
+        return this.following ;
     }
 }

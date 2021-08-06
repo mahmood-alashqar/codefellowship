@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:fragment="head">
   <meta charset="UTF-8">
   <title>MOJU</title>
@@ -31,6 +31,10 @@
         <li ><a href="/myprofile">Profile</a></li>
         <li ><a href="/signup">SignUp</a></li>
         <li ><a href="/login">LogIn</a></li>
+        <li ><a href="/feeds">Feeds</a></li>
+        <li ><a href="/users">Users</a></li>
+        <li class="" sec:authorize ="isAuthenticated()"><a href="/logout">Logout</a></li>
+        <li sec:authorize="isAuthenticated()" id="user"><span sec:authentication="name" ></span>  </li>
       </ul>
     </nav>
   </div>
@@ -38,7 +42,7 @@
 <main>
   <p>my main</p>
 </main>
-<footer class="footer-dark" th:fragment="footer">
+<footer style="margin-top: auto" class="footer-dark" th:fragment="footer">
   <div class="container">
     <div class="row">
       <div class="col-sm-6 col-md-3 item">

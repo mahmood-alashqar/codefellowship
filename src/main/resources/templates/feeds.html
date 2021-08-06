@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragment :: head" xmlns:th="http://www.w3.org/1999/xhtml" ></head>
+
+<body style="display: flex; flex-direction: column; height: 100vh">
+<header th:replace="fragment :: header"></header>
+
+<div class="w3-container" style="margin: 10%; margin-left: 40%" th:each="usera:${followinguser}">
+    <div class="w3-card-4" style="width:50%;">
+        <div class="w3-container">
+            <div th:text="${usera.getUsername}" ></div>
+            <div th:each="post:${usera.getPosts()}" >
+
+                <span  th:text="${post.getBody()}"></span>
+                <footer class="w3-container w3-blue">
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<footer th:replace="fragment :: footer"></footer>
+
+</body>
+</html>

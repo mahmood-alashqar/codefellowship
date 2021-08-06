@@ -25,6 +25,7 @@
     </ul>
     </div>
     <hr>
+    <div th:text="${noOfFollowers}"> hhhhhhhhhhhhhhhhhhh</div>
     <div class="w3-container">
         <h2>Social Media</h2>
         <div class="w3-card-4" style="width:50%">
@@ -40,7 +41,7 @@
     <form class="postForm" action="#" th:action="@{/myprofile}" th:object="${posts}" method="post" >
         <label>Enter your post</label>
         <textarea class="title" type="text" name="body" placeholder="" required ></textarea>
-        <input class="albumSubmit" type="submit" value="posts"/>
+        <input class="albumSubmit" type="submit" value="posts" style="width: 150%"/>
     </form>
     <div th:each="posts : ${posts}" class="w3-container">
         <div class="w3-card-4" style="width:50%;">
@@ -55,6 +56,7 @@
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Log Out">
     </form>
+
 </main>
 <footer th:replace="fragment :: footer"></footer>
 </body>
